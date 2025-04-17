@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Laptop Tier List</title>
+  <style>
+    body {
+      background-color: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .tier-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .tier {
+      display: flex;
+      align-items: center;
+      min-height: 100px;
+      border: 2px solid #444;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .tier-label {
+      width: 60px;
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #000;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .tier-S { background-color: #e57373; }
+    .tier-A { background-color: #f5b461; }
+    .tier-B { background-color: #f0e68c; }
+    .tier-C { background-color: #81c784; }
+    .tier-D { background-color: #64b5f6; }
+
+    .tier-content {
+      flex-grow: 1;
+      display: flex;
+      gap: 15px;
+      padding: 10px;
+      background-color: #2b2b2b;
+      overflow-x: auto;
+    }
+
+    .tier-content img {
+      max-height: 80px;
+      border-radius: 4px;
+      transition: transform 0.3s;
+    }
+
+    .tier-content img:hover {
+      transform: scale(1.1);
+    }
+
+    a.back-link {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+      color: #aaa;
+      text-decoration: none;
+    }
+
+    a.back-link:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Laptop Tier List</h1>
+  <div class="tier-list" id="laptop-tier-list"></div>
+  <a href="index.html" class="back-link">← Back to Home</a>
+
+  <script>
+    const laptopProducts = [
+      {
+        name: "MacBook Air",
+        image: "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B0C2LHBK4Y?tag=yourtag",
+        tier: "S"
+      },
+      {
+        name: "XPS 13",
+        image: "https://m.media-amazon.com/images/I/81wG7hD1F5L._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B08Q7BL7N1?tag=yourtag",
+        tier: "S"
+      },
+      {
+        name: "Lenovo Yoga",
+        image: "https://m.media-amazon.com/images/I/71FWoKk-55L._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B0C5S3G2SN?tag=yourtag",
+        tier: "A"
+      }
+    ];
+
+    const tiers = ["S", "A", "B", "C", "D"];
+
+    const tierList = document.getElementById("laptop-tier-list");
+
+    tiers.forEach(tier => {
+      const tierDiv = document.createElement('div');
+      tierDiv.classList.add('tier');
+      tierDiv.innerHTML = `<div class="tier-label tier-${tier}">${tier}</div><div class="tier-content"></div>`;
+      const tierContent = tierDiv.querySelector('.tier-content');
+
+      laptopProducts.filter(p => p.tier === tier).forEach(product => {
+        const a = document.createElement("a");
+        a.href = product.link;
+        a.target = "_blank";
+        const img = document.createElement("img");
+        img.src = product.image;
+        img.alt = product.name;
+        a.appendChild(img);
+        tierContent.appendChild(a);
+      });
+
+      tierList.appendChild(tierDiv);
+    });
+  </script>
+</body>
+</html>
