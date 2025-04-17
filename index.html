@@ -72,6 +72,26 @@
       .tier-content img {
         max-height: 80px;
         border-radius: 4px;
+        transition: transform 0.3s;
+      }
+
+      .tier-content img:hover {
+        transform: scale(1.1);
+      }
+
+      @media (max-width: 600px) {
+        .tier-list {
+          flex-direction: column;
+        }
+
+        .tier {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .tier-content {
+          flex-direction: column;
+        }
       }
     </style>
   </head>
@@ -101,89 +121,114 @@
 
     <h2 style="text-align:center;">Tier List</h2>
 
-    <div class="tier-list">
-      <div class="tier">
-        <div class="tier-label tier-S">S</div>
-        <div class="tier-content">
-          <!-- Example Product -->
-          <a href="https://www.amazon.com/dp/B07FZ8S74R?tag=yourtag" target="_blank">
-            <img src="https://images-na.ssl-images-amazon.com/images/I/example.jpg" alt="Echo Dot">
-          </a>
-        </div>
-      </div>
+    <div class="tier-list" id="tier-list"></div>
 
-      <div class="tier">
-        <div class="tier-label tier-A">A</div>
-        <div class="tier-content"></div>
-      </div>
+    <h2 style="text-align:center; margin-top:50px;">Laptop Tier List</h2>
+    <div class="tier-list" id="laptop-tier-list"></div>
 
-      <div class="tier">
-        <div class="tier-label tier-B">B</div>
-        <div class="tier-content"></div>
-      </div>
+    <h2 style="text-align:center; margin-top:50px;">Keyboard Tier List</h2>
+    <div class="tier-list" id="keyboard-tier-list"></div>
 
-      <div class="tier">
-        <div class="tier-label tier-C">C</div>
-        <div class="tier-content"></div>
-      </div>
+    <script>
+      const productData = {
+        "products": [
+          {
+            "name": "Echo Dot",
+            "image": "https://images-na.ssl-images-amazon.com/images/I/example.jpg",
+            "price": "$49.99",
+            "rating": "⭐⭐⭐⭐",
+            "link": "https://www.amazon.com/dp/B07FZ8S74R?tag=yourtag",
+            "tier": "S"
+          },
+          {
+            "name": "MacBook Air",
+            "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
+            "price": "$999.99",
+            "rating": "⭐⭐⭐⭐⭐",
+            "link": "https://www.amazon.com/dp/B0C2LHBK4Y?tag=yourtag",
+            "tier": "S"
+          },
+          {
+            "name": "XPS 13",
+            "image": "https://m.media-amazon.com/images/I/81wG7hD1F5L._AC_SL1500_.jpg",
+            "price": "$1,199.99",
+            "rating": "⭐⭐⭐⭐⭐",
+            "link": "https://www.amazon.com/dp/B08Q7BL7N1?tag=yourtag",
+            "tier": "S"
+          },
+          {
+            "name": "Lenovo Yoga",
+            "image": "https://m.media-amazon.com/images/I/71FWoKk-55L._AC_SL1500_.jpg",
+            "price": "$799.99",
+            "rating": "⭐⭐⭐⭐",
+            "link": "https://www.amazon.com/dp/B0C5S3G2SN?tag=yourtag",
+            "tier": "A"
+          },
+          {
+            "name": "Keychron K6",
+            "image": "https://m.media-amazon.com/images/I/71bEHbtNciL._AC_SL1500_.jpg",
+            "price": "$89.99",
+            "rating": "⭐⭐⭐⭐",
+            "link": "https://www.amazon.com/dp/B07W7Z7QXD?tag=yourtag",
+            "tier": "S"
+          },
+          {
+            "name": "Logitech MX Keys",
+            "image": "https://m.media-amazon.com/images/I/71A08QTUoZL._AC_SL1500_.jpg",
+            "price": "$99.99",
+            "rating": "⭐⭐⭐⭐",
+            "link": "https://www.amazon.com/dp/B07S9S74LF?tag=yourtag",
+            "tier": "S"
+          },
+          {
+            "name": "Razer Huntsman Mini",
+            "image": "https://m.media-amazon.com/images/I/71+coNUK7rL._AC_SL1500_.jpg",
+            "price": "$129.99",
+            "rating": "⭐⭐⭐⭐",
+            "link": "https://www.amazon.com/dp/B07Y9HXYW8?tag=yourtag",
+            "tier": "A"
+          }
+        ]
+      };
 
-      <div class="tier">
-        <div class="tier-label tier-D">D</div>
-        <div class="tier-content"></div>
-      </div>
-    </div> <h2 style="text-align:center; margin-top:50px;">Laptop Tier List</h2>
-<div class="tier-list">
-  <div class="tier">
-    <div class="tier-label tier-S">S</div>
-    <div class="tier-content">
-      <a href="https://www.amazon.com/dp/B0C2LHBK4Y?tag=yourtag" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg" alt="MacBook Air">
-      </a>
-      <a href="https://www.amazon.com/dp/B08Q7BL7N1?tag=yourtag" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/81wG7hD1F5L._AC_SL1500_.jpg" alt="XPS 13">
-      </a>
-    </div>
-  </div>
-  <div class="tier">
-    <div class="tier-label tier-A">A</div>
-    <div class="tier-content">
-      <a href="https://www.amazon.com/dp/B0C5S3G2SN?tag=yourtag" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/71FWoKk-55L._AC_SL1500_.jpg" alt="Lenovo Yoga">
-      </a>
-    </div>
-  </div>
-  <div class="tier">
-    <div class="tier-label tier-B">B</div>
-    <div class="tier-content"></div>
-  </div>
-</div>
+      function renderTierList(tierListId) {
+        const tierList = document.getElementById(tierListId);
+        const tiers = ["S", "A", "B", "C", "D"];
 
-<h2 style="text-align:center; margin-top:50px;">Keyboard Tier List</h2>
-<div class="tier-list">
-  <div class="tier">
-    <div class="tier-label tier-S">S</div>
-    <div class="tier-content">
-      <a href="https://www.amazon.com/dp/B07W7Z7QXD?tag=yourtag" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/71bEHbtNciL._AC_SL1500_.jpg" alt="Keychron K6">
-      </a>
-      <a href="https://www.amazon.com/dp/B07S9S74LF?tag=yourtag" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/71A08QTUoZL._AC_SL1500_.jpg" alt="Logitech MX Keys">
-      </a>
-    </div>
-  </div>
-  <div class="tier">
-    <div class="tier-label tier-A">A</div>
-    <div class="tier-content">
-      <a href="https://www.amazon.com/dp/B07Y9HXYW8?tag=yourtag" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/71+coNUK7rL._AC_SL1500_.jpg" alt="Razer Huntsman Mini">
-      </a>
-    </div>
-  </div>
-  <div class="tier">
-    <div class="tier-label tier-B">B</div>
-    <div class="tier-content"></div>
-  </div>
-</div>
+        // Clear the existing content
+        tierList.innerHTML = "";
 
+        // Group products by tier
+        tiers.forEach(tier => {
+          const tierDiv = document.createElement('div');
+          tierDiv.classList.add('tier');
+          tierDiv.innerHTML = `<div class="tier-label tier-${tier}">${tier}</div><div class="tier-content"></div>`;
+          const tierContent = tierDiv.querySelector('.tier-content');
+
+          // Filter products for the current tier
+          productData.products.filter(product => product.tier === tier).forEach(product => {
+            const productLink = document.createElement('a');
+            productLink.href = product.link;
+            productLink.target = "_blank";
+
+            const productImage = document.createElement('img');
+            productImage.src = product.image;
+            productImage.alt = product.name;
+
+            productLink.appendChild(productImage);
+            tierContent.appendChild(productLink);
+          });
+
+          tierList.appendChild(tierDiv);
+        });
+      }
+
+      // Call the function to render the tier lists when the page loads
+      window.onload = function() {
+        renderTierList('tier-list');
+        renderTierList('laptop-tier-list');
+        renderTierList('keyboard-tier-list');
+      };
+    </script>
   </body>
 </html>
