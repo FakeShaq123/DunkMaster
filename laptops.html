@@ -60,40 +60,40 @@
 
     .product-wrapper {
       position: relative;
-      display: inline-block;
+      width: 100px;
+      height: 100px;
+      background-color: #1e1e1e;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
     }
 
-    .product-wrapper img {
-      max-height: 80px;
-      border-radius: 4px;
-      transition: transform 0.3s;
+    .product-wrapper img,
+    .product-info {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #333;
+      padding: 5px;
+      font-size: 0.8em;
+      text-align: center;
+      opacity: 0;
     }
 
     .product-wrapper:hover img {
-      transform: scale(1.1);
-    }
-
-    .tooltip {
-      visibility: hidden;
-      width: 160px;
-      background-color: #333;
-      color: #fff;
-      text-align: left;
-      border-radius: 6px;
-      padding: 8px;
-      position: absolute;
-      z-index: 1;
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
       opacity: 0;
-      transition: opacity 0.3s;
-      font-size: 0.85em;
-      white-space: normal;
     }
 
-    .product-wrapper:hover .tooltip {
-      visibility: visible;
+    .product-wrapper:hover .product-info {
       opacity: 1;
     }
 
@@ -140,11 +140,34 @@
         price: "$599.00",
         rating: "⭐⭐⭐½",
         tier: "A"
+      },
+      {
+        name: "Surface Laptop Go",
+        image: "https://m.media-amazon.com/images/I/71Z1i7fP7WL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B09V3HN1DM?tag=yourtag",
+        price: "$699.00",
+        rating: "⭐⭐⭐",
+        tier: "B"
+      },
+      {
+        name: "HP Pavilion",
+        image: "https://m.media-amazon.com/images/I/81g4rYHrVhL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B08X2Z3G4Z?tag=yourtag",
+        price: "$499.00",
+        rating: "⭐⭐⭐",
+        tier: "C"
+      },
+      {
+        name: "Acer Aspire 5",
+        image: "https://m.media-amazon.com/images/I/71AmKW4yuMS._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B09MRYF7VK?tag=yourtag",
+        price: "$399.00",
+        rating: "⭐⭐½",
+        tier: "D"
       }
     ];
 
     const tiers = ["S", "A", "B", "C", "D"];
-
     const tierList = document.getElementById("laptop-tier-list");
 
     tiers.forEach(tier => {
@@ -164,13 +187,16 @@
         const img = document.createElement("img");
         img.src = product.image;
         img.alt = product.name;
+        img.onerror = function () {
+          this.src = "https://via.placeholder.com/100x100?text=No+Image";
+        };
 
-        const tooltip = document.createElement("div");
-        tooltip.classList.add("tooltip");
-        tooltip.innerHTML = `<strong>${product.name}</strong><br>Price: ${product.price}<br>Rating: ${product.rating}`;
+        const info = document.createElement("div");
+        info.classList.add("product-info");
+        info.innerHTML = `<strong>${product.name}</strong><br>Price: ${product.price}<br>Rating: ${product.rating}`;
 
         wrapper.appendChild(img);
-        wrapper.appendChild(tooltip);
+        wrapper.appendChild(info);
         a.appendChild(wrapper);
         tierContent.appendChild(a);
       });
