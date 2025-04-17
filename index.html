@@ -3,29 +3,134 @@
   <head>
     <meta charset="UTF-8" />
     <title>My First GitHub Site</title>
-  </head>
- <body>
-  <h1>Product Comparison</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Image</th>
-        <th>Price</th>
-        <th>Rating</th>
-        <th>Link</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Echo Dot</td>
-        <td><img src="https://images-na.ssl-images-amazon.com/images/I/example.jpg" width="100"></td>
-        <td>$49.99</td>
-        <td>⭐⭐⭐⭐</td>
-        <td><a href="https://www.amazon.com/dp/B07FZ8S74R?tag=yourtag" target="_blank">View</a></td>
-      </tr>
-    </tbody>
-  </table>
-</body>
+    <style>
+      body {
+        background-color: #222;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        color: #fff;
+      }
 
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+      }
+
+      th, td {
+        border: 1px solid #555;
+        padding: 10px;
+        text-align: center;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .tier-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .tier {
+        display: flex;
+        align-items: center;
+        min-height: 100px;
+        border: 2px solid #444;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .tier-label {
+        width: 60px;
+        font-size: 1.5em;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+        padding: 10px 0;
+      }
+
+      .tier-S { background-color: #e57373; }
+      .tier-A { background-color: #f5b461; }
+      .tier-B { background-color: #f0e68c; }
+      .tier-C { background-color: #81c784; }
+      .tier-D { background-color: #64b5f6; }
+
+      .tier-content {
+        flex-grow: 1;
+        display: flex;
+        gap: 15px;
+        padding: 10px;
+        background-color: #2b2b2b;
+        overflow-x: auto;
+      }
+
+      .tier-content img {
+        max-height: 80px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Product Comparison</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Rating</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Echo Dot</td>
+          <td><img src="https://images-na.ssl-images-amazon.com/images/I/example.jpg" width="100"></td>
+          <td>$49.99</td>
+          <td>⭐⭐⭐⭐</td>
+          <td><a href="https://www.amazon.com/dp/B07FZ8S74R?tag=yourtag" target="_blank">View</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 style="text-align:center;">Tier List</h2>
+
+    <div class="tier-list">
+      <div class="tier">
+        <div class="tier-label tier-S">S</div>
+        <div class="tier-content">
+          <!-- Example Product -->
+          <a href="https://www.amazon.com/dp/B07FZ8S74R?tag=yourtag" target="_blank">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/example.jpg" alt="Echo Dot">
+          </a>
+        </div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-label tier-A">A</div>
+        <div class="tier-content"></div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-label tier-B">B</div>
+        <div class="tier-content"></div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-label tier-C">C</div>
+        <div class="tier-content"></div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-label tier-D">D</div>
+        <div class="tier-content"></div>
+      </div>
+    </div>
+  </body>
 </html>
