@@ -1,234 +1,52 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>My First GitHub Site</title>
-    <style>
-      body {
-        background-color: #222;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 20px;
-        color: #fff;
-      }
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tier List Home</title>
+  <style>
+    body {
+      background-color: #222;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px;
+      color: #fff;
+      text-align: center;
+    }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 40px;
-      }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 40px;
+    }
 
-      th, td {
-        border: 1px solid #555;
-        padding: 10px;
-        text-align: center;
-      }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
 
-      h1 {
-        text-align: center;
-      }
+    .tier-button {
+      background-color: #444;
+      border: none;
+      padding: 20px 40px;
+      font-size: 1.2em;
+      color: #fff;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
 
-      .tier-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-
-      .tier {
-        display: flex;
-        align-items: center;
-        min-height: 100px;
-        border: 2px solid #444;
-        border-radius: 8px;
-        overflow: hidden;
-      }
-
-      .tier-label {
-        width: 60px;
-        font-size: 1.5em;
-        font-weight: bold;
-        color: #000;
-        text-align: center;
-        padding: 10px 0;
-      }
-
-      .tier-S { background-color: #e57373; }
-      .tier-A { background-color: #f5b461; }
-      .tier-B { background-color: #f0e68c; }
-      .tier-C { background-color: #81c784; }
-      .tier-D { background-color: #64b5f6; }
-
-      .tier-content {
-        flex-grow: 1;
-        display: flex;
-        gap: 15px;
-        padding: 10px;
-        background-color: #2b2b2b;
-        overflow-x: auto;
-      }
-
-      .tier-content img {
-        max-height: 80px;
-        border-radius: 4px;
-        transition: transform 0.3s;
-      }
-
-      .tier-content img:hover {
-        transform: scale(1.1);
-      }
-
-      @media (max-width: 600px) {
-        .tier-list {
-          flex-direction: column;
-        }
-
-        .tier {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-
-        .tier-content {
-          flex-direction: column;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Product Comparison</h1>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Image</th>
-          <th>Price</th>
-          <th>Rating</th>
-          <th>Link</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Echo Dot</td>
-          <td><img src="https://images-na.ssl-images-amazon.com/images/I/example.jpg" width="100"></td>
-          <td>$49.99</td>
-          <td>⭐⭐⭐⭐</td>
-          <td><a href="https://www.amazon.com/dp/B07FZ8S74R?tag=yourtag" target="_blank">View</a></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2 style="text-align:center;">Tier List</h2>
-
-    <div class="tier-list" id="tier-list"></div>
-
-    <h2 style="text-align:center; margin-top:50px;">Laptop Tier List</h2>
-    <div class="tier-list" id="laptop-tier-list"></div>
-
-    <h2 style="text-align:center; margin-top:50px;">Keyboard Tier List</h2>
-    <div class="tier-list" id="keyboard-tier-list"></div>
-
-    <script>
-      const productData = {
-        "products": [
-          {
-            "name": "Echo Dot",
-            "image": "https://images-na.ssl-images-amazon.com/images/I/example.jpg",
-            "price": "$49.99",
-            "rating": "⭐⭐⭐⭐",
-            "link": "https://www.amazon.com/dp/B07FZ8S74R?tag=yourtag",
-            "tier": "S"
-          },
-          {
-            "name": "MacBook Air",
-            "image": "https://m.media-amazon.com/images/I/71TPda7cwUL._AC_SL1500_.jpg",
-            "price": "$999.99",
-            "rating": "⭐⭐⭐⭐⭐",
-            "link": "https://www.amazon.com/dp/B0C2LHBK4Y?tag=yourtag",
-            "tier": "S"
-          },
-          {
-            "name": "XPS 13",
-            "image": "https://m.media-amazon.com/images/I/81wG7hD1F5L._AC_SL1500_.jpg",
-            "price": "$1,199.99",
-            "rating": "⭐⭐⭐⭐⭐",
-            "link": "https://www.amazon.com/dp/B08Q7BL7N1?tag=yourtag",
-            "tier": "S"
-          },
-          {
-            "name": "Lenovo Yoga",
-            "image": "https://m.media-amazon.com/images/I/71FWoKk-55L._AC_SL1500_.jpg",
-            "price": "$799.99",
-            "rating": "⭐⭐⭐⭐",
-            "link": "https://www.amazon.com/dp/B0C5S3G2SN?tag=yourtag",
-            "tier": "A"
-          },
-          {
-            "name": "Keychron K6",
-            "image": "https://m.media-amazon.com/images/I/71bEHbtNciL._AC_SL1500_.jpg",
-            "price": "$89.99",
-            "rating": "⭐⭐⭐⭐",
-            "link": "https://www.amazon.com/dp/B07W7Z7QXD?tag=yourtag",
-            "tier": "S"
-          },
-          {
-            "name": "Logitech MX Keys",
-            "image": "https://m.media-amazon.com/images/I/71A08QTUoZL._AC_SL1500_.jpg",
-            "price": "$99.99",
-            "rating": "⭐⭐⭐⭐",
-            "link": "https://www.amazon.com/dp/B07S9S74LF?tag=yourtag",
-            "tier": "S"
-          },
-          {
-            "name": "Razer Huntsman Mini",
-            "image": "https://m.media-amazon.com/images/I/71+coNUK7rL._AC_SL1500_.jpg",
-            "price": "$129.99",
-            "rating": "⭐⭐⭐⭐",
-            "link": "https://www.amazon.com/dp/B07Y9HXYW8?tag=yourtag",
-            "tier": "A"
-          }
-        ]
-      };
-
-      function renderTierList(tierListId) {
-        const tierList = document.getElementById(tierListId);
-        const tiers = ["S", "A", "B", "C", "D"];
-
-        // Clear the existing content
-        tierList.innerHTML = "";
-
-        // Group products by tier
-        tiers.forEach(tier => {
-          const tierDiv = document.createElement('div');
-          tierDiv.classList.add('tier');
-          tierDiv.innerHTML = `<div class="tier-label tier-${tier}">${tier}</div><div class="tier-content"></div>`;
-          const tierContent = tierDiv.querySelector('.tier-content');
-
-          // Filter products for the current tier
-          productData.products.filter(product => product.tier === tier).forEach(product => {
-            const productLink = document.createElement('a');
-            productLink.href = product.link;
-            productLink.target = "_blank";
-
-            const productImage = document.createElement('img');
-            productImage.src = product.image;
-            productImage.alt = product.name;
-
-            productLink.appendChild(productImage);
-            tierContent.appendChild(productLink);
-          });
-
-          tierList.appendChild(tierDiv);
-        });
-      }
-
-      // Call the function to render the tier lists when the page loads
-      window.onload = function() {
-        renderTierList('tier-list');
-        renderTierList('laptop-tier-list');
-        renderTierList('keyboard-tier-list');
-      };
-    </script>
-  </body>
+    .tier-button:hover {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Product Tier Lists</h1>
+  <div class="button-container">
+    <a class="tier-button" href="laptops.html">Laptop Tier List</a>
+    <a class="tier-button" href="keyboards.html">Keyboard Tier List</a>
+  </div>
+</body>
 </html>
