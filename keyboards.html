@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,14 +58,43 @@
       overflow-x: auto;
     }
 
-    .tier-content img {
-      max-height: 80px;
-      border-radius: 4px;
-      transition: transform 0.3s;
+    .product-wrapper {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      background-color: #1e1e1e;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
     }
 
-    .tier-content img:hover {
-      transform: scale(1.1);
+    .product-wrapper img,
+    .product-info {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #333;
+      padding: 5px;
+      font-size: 0.8em;
+      text-align: center;
+      opacity: 0;
+    }
+
+    .product-wrapper:hover img {
+      opacity: 0;
+    }
+
+    .product-wrapper:hover .product-info {
+      opacity: 1;
     }
 
     a.back-link {
@@ -91,26 +119,55 @@
     const keyboardProducts = [
       {
         name: "Keychron K6",
-        image: "https://m.media-amazon.com/images/I/71bEHbtNciL._AC_SL1500_.jpg",
-        link: "https://www.amazon.com/dp/B07W7Z7QXD?tag=yourtag",
+        image: "https://m.media-amazon.com/images/I/71qp3pPgfTL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B0892B9TRR?tag=yourtag",
+        price: "$74.99",
+        rating: "⭐⭐⭐⭐½",
         tier: "S"
       },
       {
         name: "Logitech MX Keys",
-        image: "https://m.media-amazon.com/images/I/71A08QTUoZL._AC_SL1500_.jpg",
-        link: "https://www.amazon.com/dp/B07S9S74LF?tag=yourtag",
+        image: "https://m.media-amazon.com/images/I/61MtB2bUXPL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B07S92QBCJ?tag=yourtag",
+        price: "$99.99",
+        rating: "⭐⭐⭐⭐",
         tier: "S"
       },
       {
-        name: "Razer Huntsman Mini",
-        image: "https://m.media-amazon.com/images/I/71+coNUK7rL._AC_SL1500_.jpg",
-        link: "https://www.amazon.com/dp/B07Y9HXYW8?tag=yourtag",
+        name: "Razer BlackWidow V3",
+        image: "https://m.media-amazon.com/images/I/71rgtFbfYIL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B08HR6ZBYJ?tag=yourtag",
+        price: "$89.99",
+        rating: "⭐⭐⭐½",
         tier: "A"
+      },
+      {
+        name: "Redragon K552",
+        image: "https://m.media-amazon.com/images/I/71kr3WAj1FL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B016MAK38U?tag=yourtag",
+        price: "$39.99",
+        rating: "⭐⭐⭐",
+        tier: "B"
+      },
+      {
+        name: "Arteck HB030B",
+        image: "https://m.media-amazon.com/images/I/71gVvYdHcrL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B00MUTWLW4?tag=yourtag",
+        price: "$19.99",
+        rating: "⭐⭐½",
+        tier: "C"
+      },
+      {
+        name: "Amazon Basics Keyboard",
+        image: "https://m.media-amazon.com/images/I/61tKQnkKbAL._AC_SL1500_.jpg",
+        link: "https://www.amazon.com/dp/B005EOWBHC?tag=yourtag",
+        price: "$14.99",
+        rating: "⭐⭐",
+        tier: "D"
       }
     ];
 
     const tiers = ["S", "A", "B", "C", "D"];
-
     const tierList = document.getElementById("keyboard-tier-list");
 
     tiers.forEach(tier => {
@@ -123,10 +180,24 @@
         const a = document.createElement("a");
         a.href = product.link;
         a.target = "_blank";
+
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("product-wrapper");
+
         const img = document.createElement("img");
         img.src = product.image;
         img.alt = product.name;
-        a.appendChild(img);
+        img.onerror = function () {
+          this.src = "https://via.placeholder.com/100x100?text=No+Image";
+        };
+
+        const info = document.createElement("div");
+        info.classList.add("product-info");
+        info.innerHTML = `<strong>${product.name}</strong><br>Price: ${product.price}<br>Rating: ${product.rating}`;
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(info);
+        a.appendChild(wrapper);
         tierContent.appendChild(a);
       });
 
