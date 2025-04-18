@@ -34,55 +34,24 @@
       border: none;
     }
 
-    .tier-list {
+    .product-list {
       display: flex;
-      flex-direction: column;
-      gap: 10px;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
       max-width: 1000px;
       margin: 0 auto;
     }
 
-    .tier {
-      display: flex;
-      align-items: center;
-      min-height: 100px;
-      border: 2px solid #444;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .tier-label {
-      width: 60px;
-      font-size: 1.5em;
-      font-weight: bold;
-      color: #000;
-      text-align: center;
-      padding: 10px 0;
-    }
-
-    .tier-S { background-color: #e57373; }
-    .tier-A { background-color: #f5b461; }
-    .tier-B { background-color: #f0e68c; }
-    .tier-C { background-color: #81c784; }
-    .tier-D { background-color: #64b5f6; }
-
-    .tier-content {
-      flex-grow: 1;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      padding: 10px;
-      background-color: #2b2b2b;
-    }
-
     .product-wrapper {
       position: relative;
-      width: 100px;
-      height: 100px;
+      width: 120px;
+      height: 120px;
       background-color: #1e1e1e;
       border-radius: 6px;
       overflow: hidden;
       cursor: pointer;
+      flex-shrink: 0;
     }
 
     .product-wrapper img,
@@ -101,7 +70,7 @@
       align-items: center;
       background-color: #333;
       padding: 5px;
-      font-size: 0.8em;
+      font-size: 0.75em;
       text-align: center;
       opacity: 0;
     }
@@ -133,13 +102,13 @@
   <div class="filters">
     <label for="sort-by">Sort by:</label>
     <select id="sort-by">
-      <option value="default">Default (Tiered)</option>
+      <option value="default">Default</option>
       <option value="price">Price (Low to High)</option>
       <option value="rating">Rating (High to Low)</option>
     </select>
   </div>
 
-  <div class="tier-list" id="keyboard-tier-list"></div>
+  <div class="product-list" id="product-list"></div>
   <a href="index.html" class="back-link">← Back to Home</a>
 
   <script>
@@ -149,52 +118,97 @@
         image: "https://m.media-amazon.com/images/I/71qp3pPgfTL._AC_SL1500_.jpg",
         link: "https://www.amazon.com/dp/B0892B9TRR?tag=yourtag",
         price: "$74.99",
-        rating: "⭐⭐⭐⭐½",
-        defaultTier: "S"
+        rating: "⭐⭐⭐⭐½"
       },
       {
         name: "Logitech MX Keys",
         image: "https://m.media-amazon.com/images/I/61MtB2bUXPL._AC_SL1500_.jpg",
         link: "https://www.amazon.com/dp/B07S92QBCJ?tag=yourtag",
         price: "$99.99",
-        rating: "⭐⭐⭐⭐",
-        defaultTier: "S"
+        rating: "⭐⭐⭐⭐"
       },
       {
         name: "Razer BlackWidow V3",
         image: "https://m.media-amazon.com/images/I/71rgtFbfYIL._AC_SL1500_.jpg",
         link: "https://www.amazon.com/dp/B08HR6ZBYJ?tag=yourtag",
         price: "$89.99",
-        rating: "⭐⭐⭐½",
-        defaultTier: "A"
+        rating: "⭐⭐⭐½"
       },
       {
         name: "Redragon K552",
         image: "https://m.media-amazon.com/images/I/71kr3WAj1FL._AC_SL1500_.jpg",
         link: "https://www.amazon.com/dp/B016MAK38U?tag=yourtag",
         price: "$39.99",
-        rating: "⭐⭐⭐",
-        defaultTier: "B"
+        rating: "⭐⭐⭐"
       },
       {
         name: "Arteck HB030B",
         image: "https://m.media-amazon.com/images/I/71gVvYdHcrL._AC_SL1500_.jpg",
         link: "https://www.amazon.com/dp/B00MUTWLW4?tag=yourtag",
         price: "$19.99",
-        rating: "⭐⭐½",
-        defaultTier: "C"
+        rating: "⭐⭐½"
       },
       {
         name: "Amazon Basics Keyboard",
         image: "https://m.media-amazon.com/images/I/61tKQnkKbAL._AC_SL1500_.jpg",
         link: "https://www.amazon.com/dp/B005EOWBHC?tag=yourtag",
         price: "$14.99",
-        rating: "⭐⭐",
-        defaultTier: "D"
+        rating: "⭐⭐"
       }
     ];
 
-    const tierList = document.getElementById("keyboard-tier-list");
-
     function parsePrice(price) {
-      return parseFloat(price.replace(/[^0-
+      return parseFloat(price.replace(/[^0-9.]/g, ""));
+    }
+
+    function parseRating(rating) {
+      const stars = rating.match(/★/g)?.length || 0;
+      return stars + (rating.includes("½") ? 0.5 : 0);
+    }
+
+    function renderProducts(sortBy = "default") {
+      const container = document.getElementById("product-list");
+      container.innerHTML = "";
+
+      let products = [...keyboardProducts];
+
+      if (sortBy === "price") {
+        products.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+      } else if (sortBy === "rating") {
+        products.sort((a, b) => parseRating(b.rating) - parseRating(a.rating));
+      }
+
+      products.forEach(product => {
+        const a = document.createElement("a");
+        a.href = product.link;
+        a.target = "_blank";
+
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("product-wrapper");
+
+        const img = document.createElement("img");
+        img.src = product.image;
+        img.alt = product.name;
+        img.onerror = function () {
+          this.src = "https://via.placeholder.com/100x100?text=No+Image";
+        };
+
+        const info = document.createElement("div");
+        info.classList.add("product-info");
+        info.innerHTML = `<strong>${product.name}</strong><br>Price: ${product.price}<br>Rating: ${product.rating}`;
+
+        wrapper.appendChild(img);
+        wrapper.appendChild(info);
+        a.appendChild(wrapper);
+        container.appendChild(a);
+      });
+    }
+
+    document.getElementById("sort-by").addEventListener("change", function () {
+      renderProducts(this.value);
+    });
+
+    renderProducts();
+  </script>
+</body>
+</html>
